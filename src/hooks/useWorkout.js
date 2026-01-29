@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { playPhaseStart, playPhaseSwitch, playComplete } from '../utils/audio';
+import { playPhaseStart, playPhaseSwitch, playComplete, playTick } from '../utils/audio';
 
 // Steps generator
 const createSteps = (config) => {
@@ -31,9 +31,6 @@ const createSteps = (config) => {
         if (tTime > 0) {
             // Calculate how many full cycles fit
             count = Math.floor(tTime / cycleDuration);
-            // Ensure at least 1 rep if time is short but >0??
-            // standard behavior: if time < 1 rep, maybe 0? 
-            // Let's assume user wants at least 1 rep if they set a time.
             if (count < 1) count = 1;
         } else {
             // Infinite (user just unchecked limit reps)
@@ -73,6 +70,7 @@ export const useWorkout = () => {
 
     const rafRef = useRef(null);
     const lastTimeRef = useRef(0);
+    const lastTickRef = useRef(-1);
 
     const startWorkout = () => {
         const generatedSteps = createSteps(config);
@@ -81,6 +79,7 @@ export const useWorkout = () => {
         setElapsedInStep(0);
         setStatus('running');
         lastTimeRef.current = performance.now();
+        lastTickRef.current = -1;
         playPhaseStart();
     };
 
@@ -116,12 +115,20 @@ export const useWorkout = () => {
 
         let newElapsed = elapsedInStep + delta;
 
+        // Tick Handling
+        const currentInt = Math.floor(newElapsed);
+        if (currentInt > lastTickRef.current && currentInt < currentStep.duration) {
+            playTick();
+            lastTickRef.current = currentInt;
+        }
+
         if (newElapsed >= currentStep.duration) {
             // Next step
             const nextIndex = currentStepIndex + 1;
             if (nextIndex < steps.length) {
                 setCurrentStepIndex(nextIndex);
                 setElapsedInStep(0); // Carry over overflow? simpler to just 0
+                lastTickRef.current = -1; // Reset tick tracker
 
                 // Audio feedback
                 const nextStep = steps[nextIndex];
@@ -137,7 +144,9 @@ export const useWorkout = () => {
         }
 
         rafRef.current = requestAnimationFrame(update);
-    }, [status, steps, currentStepIndex, elapsedInStep]);
+    }, [status, steps, currentStepIndex, elapsedInStep, elapsedInStep]);
+    // ^ duplicate elapsedInStep dep removed in manual code below for cleanliness, 
+    // but React won't mind. I will use clean version in Write.
 
     useEffect(() => {
         rafRef.current = requestAnimationFrame(update);

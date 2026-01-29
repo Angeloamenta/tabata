@@ -10,7 +10,7 @@ export const playBeep = (freq = 440, type = 'sine', duration = 0.1) => {
 
   osc.type = type;
   osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  
+
   gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
   gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
 
@@ -21,10 +21,11 @@ export const playBeep = (freq = 440, type = 'sine', duration = 0.1) => {
   osc.stop(audioCtx.currentTime + duration);
 };
 
+export const playTick = () => playBeep(1000, 'sine', 0.05);
 export const playPhaseStart = () => playBeep(880, 'sine', 0.1);
 export const playPhaseSwitch = () => playBeep(600, 'triangle', 0.1);
 export const playComplete = () => {
-    playBeep(500, 'square', 0.1);
-    setTimeout(() => playBeep(500, 'square', 0.1), 150);
-    setTimeout(() => playBeep(800, 'square', 0.3), 300);
+  playBeep(500, 'square', 0.1);
+  setTimeout(() => playBeep(500, 'square', 0.1), 150);
+  setTimeout(() => playBeep(800, 'square', 0.3), 300);
 };
