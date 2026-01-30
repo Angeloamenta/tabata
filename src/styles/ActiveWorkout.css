@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--bg-color);
+    background: var(--bg-page);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +17,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 6px;
+    height: 4px;
     background: var(--input-bg);
 }
 
@@ -25,6 +25,7 @@
     height: 100%;
     background: linear-gradient(90deg, var(--color-concentric), var(--color-eccentric));
     transition: width 0.3s linear;
+    border-radius: 0 2px 2px 0;
 }
 
 .workout-content {
@@ -40,58 +41,78 @@
 .phase-badge {
     padding: 0.5rem 1.5rem;
     border-radius: var(--radius-full);
-    font-size: 1.5rem;
-    font-weight: 800;
+    font-size: 1rem;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
     color: #fff;
-    margin-bottom: 2rem;
-    box-shadow: 0 0 20px currentColor;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.timer-ring-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.timer-ring-wrap .dotted-ring {
+    display: block;
+}
+
+.timer-ring-wrap .timer-display {
+    position: absolute;
+    margin: 0;
 }
 
 .timer-display {
-    font-size: 8rem;
+    font-size: 4.5rem;
     font-weight: 900;
     font-feature-settings: "tnum";
     font-variant-numeric: tabular-nums;
     line-height: 1;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     color: var(--text-primary);
+    letter-spacing: -2px;
 }
 
 .timer-display .unit {
-    font-size: 2rem;
-    opacity: 0.5;
-    margin-left: 0.5rem;
+    font-size: 1.5rem;
+    opacity: 0.45;
+    margin-left: 0.25rem;
+    font-weight: 600;
 }
 
 .phase-progress-container {
     width: 100%;
-    height: 24px;
+    height: 12px;
     background: var(--input-bg);
     border-radius: var(--radius-full);
     overflow: hidden;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     position: relative;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--card-border);
 }
 
 .phase-progress-bar {
     height: 100%;
     transition: width 0.1s linear, background-color 0.3s;
-    box-shadow: 0 0 15px currentColor;
+    border-radius: var(--radius-full);
 }
 
 .controls {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
 .control-btn {
-    background: var(--input-bg);
-    border: 1px solid var(--border-color);
-    width: 64px;
-    height: 64px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     color: var(--text-primary);
     display: flex;
@@ -99,19 +120,27 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s;
+    box-shadow: var(--card-shadow);
+}
+
+.control-btn:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .control-btn:active {
-    transform: scale(0.9);
+    transform: scale(0.95);
 }
 
 .control-btn.secondary {
-    background: var(--input-hover);
+    background: linear-gradient(135deg, var(--color-concentric), var(--color-eccentric));
+    color: white;
+    border: none;
 }
 
 .control-btn.dest {
-    background: rgba(255, 59, 48, 0.2);
+    background: var(--card-bg);
     color: #ff3b30;
+    border-color: rgba(255, 59, 48, 0.3);
 }
 
 .bg-pulse {
@@ -124,4 +153,5 @@
     pointer-events: none;
     z-index: 1;
     transition: opacity 0.5s;
+    opacity: 0.06;
 }

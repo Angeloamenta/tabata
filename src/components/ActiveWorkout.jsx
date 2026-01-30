@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Pause, Square } from 'lucide-react';
+import { DottedProgressRing } from './DottedProgressRing';
 import '../styles/ActiveWorkout.css';
-
-const formatTime = (seconds) => {
-    const m = Math.floor(seconds / 60);
-    const s = Math.floor(seconds % 60);
-    return `${m}:${s.toString().padStart(2, '0')}`;
-};
 
 export const ActiveWorkout = ({
     currentStep,
@@ -18,19 +13,16 @@ export const ActiveWorkout = ({
     totalSteps
 }) => {
     const remaining = Math.max(0, currentStep.duration - elapsedInStep);
-    const progressPercent = Math.min(100, (elapsedInStep / currentStep.duration) * 100);
-
-    const totalProgress = (currentStepIndex / totalSteps) * 100;
+    const progressPercent = currentStep.duration > 0
+        ? Math.min(100, (elapsedInStep / currentStep.duration) * 100)
+        : 100;
+    const totalProgress = totalSteps > 0 ? (currentStepIndex / totalSteps) * 100 : 0;
 
     return (
         <div className="workout-container" style={{ '--phase-color': currentStep.color || '#fff' }}>
 
-            {/* Top Bar: Total Progress */}
             <div className="total-progress-track">
-                <div
-                    className="total-progress-fill"
-                    style={{ width: `${totalProgress}%` }}
-                />
+                <div className="total-progress-fill" style={{ width: `${totalProgress}%` }} />
             </div>
 
             <div className="workout-content">
@@ -38,11 +30,18 @@ export const ActiveWorkout = ({
                     {currentStep.label}
                 </div>
 
-                <div className="timer-display">
-                    {remaining.toFixed(1)}<span className="unit">s</span>
+                <div className="timer-ring-wrap">
+                    <DottedProgressRing
+                        percent={progressPercent}
+                        size={220}
+                        color={currentStep.color}
+                        trackColor="rgba(0,0,0,0.08)"
+                    />
+                    <div className="timer-display">
+                        {remaining.toFixed(1)}<span className="unit">s</span>
+                    </div>
                 </div>
 
-                {/* Visual Bar for Phase */}
                 <div className="phase-progress-container">
                     <div
                         className="phase-progress-bar"
@@ -63,8 +62,7 @@ export const ActiveWorkout = ({
                 </div>
             </div>
 
-            {/* Background Pulse Effect */}
-            <div className="bg-pulse" style={{ opacity: status === 'paused' ? 0 : 0.1 }} />
+            <div className="bg-pulse" style={{ opacity: status === 'paused' ? 0 : 0.08 }} />
         </div>
     );
 };

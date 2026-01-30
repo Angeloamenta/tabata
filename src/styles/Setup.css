@@ -3,24 +3,22 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    /* Take full height of root */
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
     padding-bottom: calc(var(--spacing-lg) + 20px);
-    /* Extra padding for bottom */
     box-sizing: border-box;
     overflow-y: auto;
-    /* Enable scrolling */
     -webkit-overflow-scrolling: touch;
-    /* Smooth scroll on iOS */
+    background: var(--bg-page);
 }
 
 .header {
     text-align: center;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    padding-top: var(--spacing-xs);
 }
 
 .header h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
     margin: 0;
     letter-spacing: -1px;
@@ -33,16 +31,174 @@
     -webkit-text-fill-color: transparent;
 }
 
-.form-grid {
-    display: flex;
-    flex-direction: column;
+/* Grid layout - telecom dashboard style */
+.setup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: var(--spacing-sm);
-    background: var(--surface-color);
-    padding: var(--spacing-md);
-    border-radius: var(--radius-md);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    flex: 1;
 }
 
+/* Metric cards - top row */
+.metric-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.metric-card-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.metric-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+.metric-unit {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.metric-ring {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    opacity: 0.6;
+}
+
+/* Phases card - 3 circular indicators */
+.phases-card {
+    grid-column: 1 / -1;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+}
+
+.card-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 var(--spacing-sm) 0;
+}
+
+.phases-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.phase-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.phase-ring-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-xs);
+}
+
+.phase-ring-wrap .dotted-ring {
+    display: block;
+}
+
+.phase-value {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+.phase-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.phase-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+}
+
+.phase-input button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: var(--input-bg);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.phase-input button:hover:not(:disabled) {
+    background: var(--input-hover);
+}
+
+.phase-input button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.phase-input input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+/* Reps card */
+.card {
+    grid-column: 1 / -1;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--card-border);
+}
+
+.card .card-title {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Input groups */
 .input-group {
     display: flex;
     justify-content: space-between;
@@ -56,34 +212,26 @@
 }
 
 .input-label {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    color: var(--text-secondary);
-}
-
-.optional {
-    font-size: 0.7em;
-    opacity: 0.7;
+    color: var(--text-primary);
 }
 
 .input-wrapper {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: var(--input-bg);
-    border-radius: var(--radius-sm);
-    padding: 4px;
+    gap: 4px;
 }
 
 .input-wrapper button {
-    background: transparent;
+    width: 28px;
+    height: 28px;
     border: none;
-    color: var(--text-primary);
-    width: 30px;
-    height: 30px;
+    background: var(--input-bg);
     border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 1rem;
     cursor: pointer;
-    font-size: 1.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,53 +242,26 @@
 }
 
 .input-wrapper input {
-    background: transparent;
-    border: none;
-    color: var(--text-primary);
-    width: 50px;
+    width: 40px;
     text-align: center;
-    font-size: 1.2rem;
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
     font-weight: 700;
+    color: var(--text-primary);
     appearance: textfield;
     -moz-appearance: textfield;
 }
 
-.start-btn {
-    margin-top: var(--spacing-lg);
-    background: linear-gradient(135deg, var(--color-concentric), var(--color-eccentric));
-    border: none;
-    border-radius: var(--radius-full);
-    padding: 18px;
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    cursor: pointer;
-    transition: transform 0.1s, filter 0.2s;
-}
-
-.start-btn:active {
-    transform: scale(0.98);
-}
-
-.total-preview {
-    text-align: center;
-    margin-top: var(--spacing-md);
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-/* Toggle Styling */
+/* Toggle */
 .input-group.toggle-group {
     background: var(--input-bg);
     border-radius: var(--radius-sm);
-    padding: 10px;
-    margin-bottom: 5px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
     cursor: pointer;
     transition: background 0.2s;
+    border: none;
 }
 
 .input-group.toggle-group:hover {
@@ -148,12 +269,13 @@
 }
 
 .active-toggle {
-    width: 44px;
-    height: 24px;
+    width: 40px;
+    height: 22px;
     border-radius: 20px;
     background: var(--toggle-off);
     position: relative;
     transition: background 0.2s ease-in-out;
+    flex-shrink: 0;
 }
 
 .active-toggle.on {
@@ -161,19 +283,72 @@
 }
 
 .toggle-handle {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     background: white;
     border-radius: 50%;
     position: absolute;
     top: 2px;
     left: 2px;
     transition: transform 0.2s ease-in-out;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .active-toggle.on .toggle-handle {
-    transform: translateX(20px);
+    transform: translateX(18px);
+}
+
+/* CTA card - full accent like "24 Days" */
+.cta-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--color-concentric), var(--color-eccentric));
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.cta-ring-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cta-label {
+    position: absolute;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    opacity: 0.9;
+}
+
+.start-btn {
+    width: 100%;
+    max-width: 280px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-eccentric);
+    border: none;
+    border-radius: var(--radius-full);
+    padding: 16px 24px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.start-btn:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.start-btn:active {
+    transform: scale(0.98);
 }
 
 /* Animations */
@@ -184,9 +359,8 @@
 @keyframes fadeInSlide {
     from {
         opacity: 0;
-        transform: translateY(-5px);
+        transform: translateY(-6px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
