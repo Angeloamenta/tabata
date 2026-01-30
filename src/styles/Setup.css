@@ -27,7 +27,10 @@
 }
 
 .accent {
-    color: var(--color-concentric);
+    background: linear-gradient(90deg, var(--color-concentric), var(--color-eccentric));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .form-grid {
@@ -117,7 +120,6 @@
     gap: 10px;
     cursor: pointer;
     transition: transform 0.1s, filter 0.2s;
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
 }
 
 .start-btn:active {
@@ -155,7 +157,7 @@
 }
 
 .active-toggle.on {
-    background: var(--color-concentric);
+    background: linear-gradient(135deg, var(--color-concentric), var(--color-eccentric));
 }
 
 .toggle-handle {
