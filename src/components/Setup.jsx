@@ -41,7 +41,6 @@ export const Setup = ({ config, setConfig, onStart }) => {
         <div className="setup-container fade-in">
             <header className="header">
                 <h1>Tabata<span className="accent">Pulse</span></h1>
-                <p>Advanced Tempo Timer</p>
             </header>
 
             <div className="form-grid">
