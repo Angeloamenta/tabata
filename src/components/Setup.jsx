@@ -46,7 +46,6 @@ export const Setup = ({ config, setConfig, onStart }) => {
         : (config.totalTime > 0 ? config.totalTime + "s (+5s)" : "—");
 
     const reps = parseInt(config.sets) || 0;
-    const repsPct = Math.min(100, (reps / 20) * 100);
 
     return (
         <div className="setup-container fade-in">
@@ -60,9 +59,6 @@ export const Setup = ({ config, setConfig, onStart }) => {
                     <div className="metric-card-inner">
                         <span className="metric-value">{reps}</span>
                         <span className="metric-unit">reps</span>
-                    </div>
-                    <div className="metric-ring">
-                        <DottedProgressRing percent={repsPct} size={36} color="var(--color-eccentric)" />
                     </div>
                 </div>
 

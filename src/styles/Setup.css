@@ -75,18 +75,6 @@
     margin-top: 2px;
 }
 
-.metric-ring {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    opacity: 0.5;
-}
-
-.metric-ring .dotted-ring {
-    width: 32px;
-    height: 32px;
-}
-
 /* Phases card - 3 circular indicators */
 .phases-card {
     grid-column: 1 / -1;
@@ -383,11 +371,6 @@
 
     .metric-card {
         padding: 0.6rem;
-    }
-
-    .metric-ring .dotted-ring {
-        width: 28px;
-        height: 28px;
     }
 
     .metric-value {
