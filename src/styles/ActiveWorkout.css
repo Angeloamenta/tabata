@@ -155,3 +155,46 @@
     transition: opacity 0.5s;
     opacity: 0.06;
 }
+
+/* Mobile: ridurre interfaccia per evitare overflow */
+@media (max-width: 480px) {
+    .workout-content {
+        padding: 1rem;
+        max-width: 100%;
+    }
+
+    .phase-badge {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .timer-ring-wrap,
+    .timer-ring-wrap .dotted-ring {
+        width: 160px;
+        height: 160px;
+    }
+
+    .timer-display {
+        font-size: 3.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .timer-display .unit {
+        font-size: 1.25rem;
+    }
+
+    .phase-progress-container {
+        margin-bottom: 2rem;
+        height: 10px;
+    }
+
+    .controls {
+        gap: 1rem;
+    }
+
+    .control-btn {
+        width: 56px;
+        height: 56px;
+    }
+}

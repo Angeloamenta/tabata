@@ -62,7 +62,7 @@ export const Setup = ({ config, setConfig, onStart }) => {
                         <span className="metric-unit">reps</span>
                     </div>
                     <div className="metric-ring">
-                        <DottedProgressRing percent={repsPct} size={56} color="var(--color-eccentric)" />
+                        <DottedProgressRing percent={repsPct} size={36} color="var(--color-eccentric)" />
                     </div>
                 </div>
 
